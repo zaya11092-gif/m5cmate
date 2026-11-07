@@ -83,7 +83,7 @@ final class PrintMonitor: ObservableObject {
         let printer = settings.printerName.isEmpty ? "printer" : settings.printerName
 
         // First status after (re)connect: reattach silently, no event spam.
-        if isFirst {
+        if isFirstStatus {
             if status.isActive && settings.autoLiveActivity {
                 LiveActivityService.shared.reattachIfNeeded(printerName: printer, fileName: file)
                 if !LiveActivityService.shared.isRunning {

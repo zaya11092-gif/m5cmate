@@ -64,7 +64,7 @@ final class AnkerMQTTClient: NSObject {
 
         state = .connecting
         log("Connecting to \(account.region.mqttHost):8789 as \(account.mqttUsername) …")
-        client.connect(timeout: 15)
+        _ = client.connect(timeout: 15)
         mqtt = client
     }
 
@@ -218,7 +218,7 @@ final class AnkerMQTTClient: NSObject {
 
         func mqttDidReceivePong(_ mqtt: CocoaMQTT) {}
 
-        func mqtt(_ mqtt: CocoaMQTT, didDisconnect: CocoaMQTT, withError err: Error?) {
+        func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
             if owner?.state == .connected || owner?.state == .connecting {
                 owner?.state = .disconnected(reason: err?.localizedDescription)
                 owner?.log("✗ Disconnected: \(err?.localizedDescription ?? "no error")")
